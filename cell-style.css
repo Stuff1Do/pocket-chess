@@ -1,0 +1,261 @@
+:root {
+  /* HEX version */
+  --maize: #FEE55C;
+  --raisin-black: #242425;
+  --onyx: #3F3F3F;
+  --coral-pink: #F5A08A;
+  --naples-yellow: #FEDE5D;
+  /* size of one square on the board */
+  --cell-size: 100px;
+
+  /* or HSL version — choose one, not both */
+  /* --maize: hsla(51, 99%, 68%, 1);
+  --raisin-black: hsla(240, 1%, 14%, 1);
+  --onyx: hsla(0, 0%, 25%, 1);
+  --coral-pink: hsla(12, 84%, 75%, 1);
+  --naples-yellow: hsla(48, 99%, 68%, 1); */
+}
+
+.level-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.level-header {
+    padding-top: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.header-content{
+    display: flex;
+    flex-direction: column;
+}
+.level-title {
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--raisin-black);
+}
+
+.nav-button {
+    background: var(--raisin-black);
+    color: var(--maize);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.nav-button:hover {
+    transform: scale(1.1);
+}
+
+.nav-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.status-message {
+    display: none;
+    color: red;
+    font-size: 20px;
+    margin-left: 126px;
+    position: fixed;
+}
+
+.turn-indicator {
+    color: var(--raisin-black);
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.game-section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 400px;
+    margin: 0 auto;
+}
+
+.board-wrapper {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 12px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.board-container {
+    /* board size is set by JS to fit viewport; keep a reasonable default */
+    width: 480px;
+    height: 480px;
+    background: transparent;
+    border-radius: 4px;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-left: 440px;
+}
+
+.hint-button,
+.solution-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+    border: none;
+    transition: transform 0.2s;
+}
+
+.hint-button img {
+    width: 20px;
+    height: 20px;
+}
+
+.hint-button {
+    background: white;
+    color: var(--maize);
+}
+
+.solution-button {
+    background: #007bff;
+    color: white;
+}
+
+.button-back {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--maize);
+    color: var(--raisin-black);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.button-back:hover,
+.hint-button:hover,
+.solution-button:hover {
+    transform: scale(1.05);
+}
+
+.objective {
+    text-align: center;
+    font-size: 20px;
+    margin: 20px 0;
+    color: var(--raisin-black);
+}
+
+.forward-button{
+    background-color: var(--coral-pink);
+    outline: none;
+    border: none;
+    padding: 14px;
+    border-radius: 30px;
+}
+
+.back-button{
+    background-color: var(--coral-pink);
+    outline: none;
+    border: none;
+    padding: 14px;
+    border-radius: 30px;
+}
+
+.forward-button:not(:disabled):hover,
+.back-button:not(:disabled):hover {
+  background-color: #f87656;
+}
+
+i{
+    font-size: 20px;
+    font-weight: 800;
+}
+
+/* Highlight a selected square for click-to-move */
+.selected-square {
+    outline: 3px solid var(--maize);
+    box-shadow: 0 0 0 3px rgba(254,229,92,0.12);
+}
+
+/* Banner shown when files are opened via file:// to help users run a local server */
+.local-server-banner {
+    background: #fff3c4;
+    color: #333;
+    padding: 10px 14px;
+    text-align: center;
+    font-weight: 700;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+/* wrapper clips the inner board and centers the square container */
+.board-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* ensure clipping */
+}
+
+/* board-container becomes the visible square window */
+.board-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: width 160ms ease, height 160ms ease;
+  margin: 0 auto; /* center horizontally */
+}
+
+/* inner board/table must be absolutely positioned so it can be shifted */
+#board table,
+#board > .board-inner,
+#board > .board-inner * {
+  box-sizing: border-box;
+}
+
+#board table {
+  position: absolute; /* we'll move the whole table */
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+}
