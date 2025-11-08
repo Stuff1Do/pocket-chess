@@ -134,3 +134,8 @@ body{
   font-weight: 800;
 }
 
+.levels-section .cell.completed {
+  opacity: 0.45;
+  filter: grayscale(0.6);
+  position: relative;
+}

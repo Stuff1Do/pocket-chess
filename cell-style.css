@@ -179,6 +179,7 @@
 }
 
 .objective {
+    display: none;
     text-align: center;
     font-size: 20px;
     margin: 20px 0;
@@ -191,6 +192,7 @@
     border: none;
     padding: 14px;
     border-radius: 30px;
+   
 }
 
 .back-button{
@@ -204,6 +206,7 @@
 .forward-button:not(:disabled):hover,
 .back-button:not(:disabled):hover {
   background-color: #f87656;
+  cursor: pointer;
 }
 
 i{
@@ -229,14 +232,18 @@ i{
 
 /* wrapper clips the inner board and centers the square container */
 .board-wrapper {
+    position: relative; 
+    overflow: hidden;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
   overflow: hidden; /* ensure clipping */
 }
 
 /* board-container becomes the visible square window */
 .board-container {
+    position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -258,4 +265,50 @@ i{
   left: 0;
   margin: 0;
   padding: 0;
+}
+
+.cropped-coords{    
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.hint-display {
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.solution-display{
+    width: 400px;
+    height: 200px;
+    border: none    ;
+    background-color: #007bff;
+    border-radius: 10px;
+}
+
+.dialog-header{
+    text-align: right;
+}
+
+.x-mark{
+    font-size: 10px;
+    cursor: pointer;
+    background-color: var(--coral-pink);
+    padding: 6px;
+    border-radius: 20px;
+}
+.title{
+    color: white;
+    font-size: 16px;
+    font-weight: 800;
+
+}
+
+.solution-content{
+    color: white;
+    font-size: 14px;
+    padding: 10px;
+    max-height: 120px;
+    overflow-y: auto;
 }

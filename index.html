@@ -23,18 +23,7 @@
       <div class="levels-section" aria-label="chessboard"></div>
     </div>
   <script src="main-script.js"></script>
-  <script>
-    // If opened via file:// show a short instruction banner
-    (function(){
-      if (window.location && window.location.protocol === 'file:') {
-        const banner = document.createElement('div');
-        banner.className = 'local-server-banner';
-        banner.style.cssText = 'background:#fff3c4;color:#333;padding:8px 12px;text-align:center;font-weight:600;';
-        banner.innerHTML = 'Serving files via <code>file://</code> can prevent puzzles from loading. Run a local server: <code>python -m http.server 8000</code> and open <code>http://localhost:8000/</code>.';
-        document.body.insertBefore(banner, document.body.firstChild);
-      }
-    })();
-  </script>
+ 
 
 </body>
 </html>

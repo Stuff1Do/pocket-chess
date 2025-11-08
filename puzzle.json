@@ -28,19 +28,82 @@
     "description": "White to move; possible moves are h3, Kh5, Kxf3"
   },
   {
-    
-  "id": 5,
-  "fen": "3n3k/7p/4q1p1/8/6Q1/8/8/8 w - - 0 1",
-  "solution": ["Qd4","Kg8",  "Qxd8"],
+    "id": 5,
+    "fen": "3n3k/7p/4q1p1/8/6Q1/8/8/8 w - - 0 1",
+    "side_to_move": "white",
+    "solution": ["Qd4", "Kg8", "Qxd8"],
+    "description": "White to move and play Qxd8"
+  },
+  {
+    "id": 6,
+    "fen": "3r1k2/5p2/4p3/3rP3/3NK3/3P4/5R2/8 w - - 0 1",
+    "side_to_move": "white",
+    "solution": ["Nxe6", "Ke7", "Nxd8"],
+    "description": "White to move and follow the sequence Nxe6, Ke7, Nxd8"
+  },
+  {
+    "id": 7,
+    "fen": "2n5/P7/1k6/1PNp4/2pP4/2q5/8/8 w - - 0 1",
+    "side_to_move": "white",
+    "solution": ["Na4", "Kxb5", "Nxc3"],
+    "description": "White to move and follow the sequence Na4, Kxb5, Nxc3"
+  },
+  {
+    "id": 8,
+    "fen": "5rk1/5ppp/5n2/6B1/3q4/3B4/5PPP/3Q1RK1 w - - 0 1",
+    "side_to_move": "white",
+    "solution": ["Bh7", "Nxh7", "Qxd4"],
+    "description": "White to play: Bh7 (first), then Nxh7, then Qxd4."
+  },
+  {
+    "id": 9,
+    "fen": "2bqk2r/4ppbp/6p1/2PQ4/8/2N2N2/1P2PPPP/2B1KB1R b - - 0 1",
+    "side_to_move": "black",
+    "solution": ["Bxc3", "Bd2", "Qxd5"],
+    "description": "Black to move: Bxc3, then Bd2, then Qxd5."
+  },
+  {
+    "id": 10,
+    "fen": "6k1/4Rp2/5Qp1/3p1q2/7p/8/8/8 w - - 0 1",
+    "side_to_move": "white",
+    "solution": ["Re8", "Kh7", "Qh8"],
+    "description": "White to move: Re8, then Kh7, then Qh8."
+  },
+  {
+    "id": 11,
+    "fen": "5k2/5p2/2pN4/Q7/3P4/1P3q2/P3r3/8 w - - 0 1",
+    "side_to_move": "white",
+    "solution": ["Qd8", "Re8", "Qxe8"],
+    "description": "White to move: Qd8, then Qe8, then Qxe8."
+  },
+  {
+  "id": 12,
+  "fen": "5k2/8/6RP/5r2/8/8/8/8 w - - 0 1",
+  "solution": ["h7", "Rh5", "Rg8"],
   "side_to_move": "white",
-  "description": "White to move and play Qxd8"
+  "description": "White to move: push the pawn to h7, then use the rook to deliver mate."
 },
 {
-  "id": 6,
-  "fen": "1r2k3/1p1b4/8/1q1Nn3/8/8/8/8 w - - 0 1",
+  "id": 13,
+  "fen": "8/8/8/2q2b2/5Qn1/2N2N2/2P3PP/3RRK2 b - - 0 1",
+  "solution": ["Qf2"],
+  "side_to_move": "black",
+  "description": "Black to move: deliver a threat or check with Qf2."
+},
+{
+  "id": 14,
+  "fen": "6kr/3pqRp1/4p1Q1/4n1Np/7P/8/8/8 w - - 0 1",
+  "solution": ["Qxg7"],
   "side_to_move": "white",
-  "solution": ["Nc7", "Ke7", "Nxb5"],
-  "description": "White to move and follow the sequence Nc7, Ke7, Nxb5"
+  "description": "White to move and play Qg7"
 }
 
-]
+
+
+
+
+ ]
+
+
+
+

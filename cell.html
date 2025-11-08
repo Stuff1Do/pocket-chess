@@ -52,11 +52,22 @@
             <button class="solution-button">Show solution</button>
           </div>
         </div>
-
+        <dialog class="solution-display">
+          <div class="dialog-header">
+            <i class="fa-solid fa-xmark x-mark"></i>
+            
+          </div>
+          <div class="title">Solution:</div>
+          <div class="solution-content">
+            
+          </div>
+        </dialog>
         <div class="board-wrapper">
+          <div class="hint-display" id="hint-display"></div>
           <div class="board-container" id="board">
             <!-- Chess board will be imported here -->
           </div>
+          <div class="croppped-coords" id="croppped-coords"></div>
         </div>
       </div>
     </div>

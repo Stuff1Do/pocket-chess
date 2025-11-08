@@ -1,5 +1,5 @@
 // ===============================
-// Pocket-Chess Cell Script (no cropping version)
+// Pocket-Chess Cell Script (rectangle crop, crop only once, fixed SAN, show cropped coords, auto-flip black)
 // ===============================
 
 // Global puzzle data
@@ -21,7 +21,6 @@ fetch('puzzle.json')
 // ===============================
 // Helper Functions
 // ===============================
-
 function getParam(name) {
   const p = new URLSearchParams(window.location.search);
   return p.get(name);
@@ -29,35 +28,27 @@ function getParam(name) {
 
 function coordToLevelNumber(coord) {
   if (!coord || coord === 'unknown') return 'unknown';
-  
   const file = coord.charAt(0).toLowerCase();
   const rank = parseInt(coord.charAt(1));
-  
   if (file < 'a' || file > 'h' || rank < 1 || rank > 8) return 'unknown';
-  
   const fileIndex = file.charCodeAt(0) - 'a'.charCodeAt(0);
   const rankIndex = 8 - rank;
-  
   return (rankIndex * 8 + fileIndex + 1).toString();
 }
 
 function levelNumberToCoord(level) {
   if (level < 1 || level > 64) return null;
   level = parseInt(level);
-  
   const row = Math.floor((level - 1) / 8);
   const col = (level - 1) % 8;
-  
   const file = String.fromCharCode('a'.charCodeAt(0) + col);
   const rank = 8 - row;
-  
   return `${file}${rank}`;
 }
 
 // ===============================
 // Puzzle Initialization
 // ===============================
-
 function initializePuzzle() {
   const coord = getParam('coord') || 'a8';
   const levelNumber = coordToLevelNumber(coord);
@@ -68,8 +59,7 @@ function initializePuzzle() {
 
   // Find the puzzle from data
   const puzzle = puzzlesData.find(p => p.id === parseInt(levelNumber));
-
-  console.log('Loaded puzzle:', puzzle); // Debugging
+  console.log('Loaded puzzle:', puzzle);
 
   if (!puzzle) {
     document.getElementById('status').textContent = 'Puzzle not found';
@@ -77,8 +67,7 @@ function initializePuzzle() {
     return;
   }
 
-  // Update objective
-  document.querySelector('.objective').textContent = puzzle.objective;
+  document.querySelector('.objective').textContent = puzzle.description || puzzle.objective || '';
 
   // Initialize chess.js game
   const game = new Chess(puzzle.fen);
@@ -92,33 +81,55 @@ function initializePuzzle() {
     onSnapEnd,
     pieceTheme: 'https://chessboardjs.com/img/chesspieces/wikipedia/{piece}.png'
   };
-
   const board = Chessboard('board', config);
 
   updateTurnIndicator(game);
 
-    // Crop the displayed board to only show squares that contain pieces
-// Debounce helper
-function debounce(fn, wait = 120) {
-  let t;
-  return (...args) => {
-    clearTimeout(t);
-    t = setTimeout(() => fn(...args), wait);
-  };
-}
+  // ===============================
+  // Debounce Helper
+  // ===============================
+  function debounce(fn, wait = 120) {
+    let t;
+    return (...args) => {
+      clearTimeout(t);
+      t = setTimeout(() => fn(...args), wait);
+    };
+  }
 
-// Crop to a square that contains all pieces and center it
-function cropBoardToPiecesSquare(game, opts = {}) {
+  // ===============================
+  // Auto-flip board if black to move (crop after flip)
+  // ===============================
+  if (puzzle.side_to_move && puzzle.side_to_move.toLowerCase() === 'black') {
+    if (typeof board.flip === 'function') board.flip();
+    else if (typeof board.orientation === 'function') board.orientation('black');
+  }
+
+  // ===============================
+  // Rectangle Crop Function
+  // ===============================
+  // ===============================
+// Rectangle Crop Function (handles flipped orientation)
+// ===============================
+function cropBoardToPiecesRectangle(game, opts = {}) {
   const boardEl = document.getElementById('board');
   if (!boardEl) return;
 
   const container = document.querySelector('.board-container');
   const wrapper = document.querySelector('.board-wrapper');
+  const innerTable = boardEl.querySelector('table') || boardEl.querySelector('.board') || boardEl.firstElementChild;
+  if (!innerTable || !container) return;
 
-  // chess.js board() returns array of 8 ranks (rank 8 down to rank 1)
+  if (wrapper) {
+    wrapper.style.overflow = 'hidden';
+    wrapper.style.position = 'relative';
+  }
+
+  innerTable.style.position = 'absolute';
+
+  // board() returns ranks from 8 -> 1 as rows [0..7], and files a -> h as cols [0..7]
   const b = game.board();
 
-  // find bounding box (cols: 0..7 left to right, rows: 0..7 top to bottom)
+  // Find bounding box of pieces in array coordinates
   let minCol = 8, maxCol = -1, minRow = 8, maxRow = -1;
   for (let r = 0; r < 8; r++) {
     for (let c = 0; c < 8; c++) {
@@ -131,247 +142,211 @@ function cropBoardToPiecesSquare(game, opts = {}) {
     }
   }
 
-  const innerTable = boardEl.querySelector('table') || boardEl.querySelector('.board') || boardEl.firstElementChild;
-  if (!innerTable) return;
-
-  // If no pieces, show a fallback square (use default cell-size or current board size)
+  // No pieces fallback: center a reasonable square
   if (maxCol === -1) {
-    // no pieces: fallback to a nice square sized by current board or default 480px
     const fallback = Math.max(innerTable.offsetWidth || 480, innerTable.offsetHeight || 480);
     container.style.width = `${fallback}px`;
     container.style.height = `${fallback}px`;
     innerTable.style.left = `${Math.round((fallback - (innerTable.offsetWidth || fallback)) / 2)}px`;
     innerTable.style.top = `${Math.round((fallback - (innerTable.offsetHeight || fallback)) / 2)}px`;
+    const coordsEl = document.getElementById('croppped-coords');
+    if (coordsEl) coordsEl.textContent = `Cropped board: a1 - h8`;
     return;
   }
 
   const fullWidth = innerTable.offsetWidth || innerTable.getBoundingClientRect().width;
   const fullHeight = innerTable.offsetHeight || innerTable.getBoundingClientRect().height;
-  // protect against zero measurements
   const measured = Math.max(fullWidth, fullHeight, 1);
-
-  // square cells assumed
   const cellSize = Math.round(measured / 8);
 
-  // current bounding box size in squares
-  const cols = (maxCol - minCol + 1);
-  const rows = (maxRow - minRow + 1);
-
-  // make it square by taking the larger dimension
-  const dim = Math.max(cols, rows);
-
-  // optional padding squares around the crop (default 0)
   const pad = typeof opts.padding === 'number' ? opts.padding : 0;
+  const totalCols = Math.min(8, maxCol - minCol + 1 + 2 * pad);
+  const totalRows = Math.min(8, maxRow - minRow + 1 + 2 * pad);
 
-  // total square dimension in squares
-  const sq = Math.min(8, dim + 2 * pad);
+  // Clamp target min indices (array coordinates)
+  const targetMinCol = Math.max(0, Math.min(minCol - pad, 8 - totalCols));
+  const targetMinRow = Math.max(0, Math.min(minRow - pad, 8 - totalRows));
+  const targetMaxCol = targetMinCol + totalCols - 1;
+  const targetMaxRow = targetMinRow + totalRows - 1;
 
-  // final visible size in pixels
-  const newSizePx = Math.round(sq * cellSize);
+  // If the board is visually flipped (black to move), DOM indices are reversed:
+  const isFlipped = !!(puzzle && puzzle.side_to_move && puzzle.side_to_move.toLowerCase() === 'black');
 
-  // compute how many extra squares are left/right and top/bottom to center the original bbox
-  const extraCols = sq - cols;
-  const extraRows = sq - rows;
+  // Convert array indices -> DOM indices (used for pixel offsets)
+  // When not flipped: DOM_col = array_col, DOM_row = array_row
+  // When flipped: DOM_col = 7 - array_col, DOM_row = 7 - array_row
+  const domMinCol = isFlipped ? 7 - targetMaxCol : targetMinCol;
+  const domMinRow = isFlipped ? 7 - targetMaxRow : targetMinRow;
 
-  // distribute extra squares evenly (left bias uses Math.floor)
-  const padLeft = Math.floor(extraCols / 2);
-  const padTop = Math.floor(extraRows / 2);
+  const leftPx = -Math.round(domMinCol * cellSize);
+  const topPx = -Math.round(domMinRow * cellSize);
+  const newWidthPx = totalCols * cellSize;
+  const newHeightPx = totalRows * cellSize;
 
-  // target minimum column/row to align to top-left of the square window
-  let targetMinCol = minCol - padLeft - pad;
-  let targetMinRow = minRow - padTop - pad;
+  // Apply sizes to container so it crops to the rectangle
+  container.style.width = `${newWidthPx}px`;
+  container.style.height = `${newHeightPx}px`;
+  container.style.minWidth = `${newWidthPx}px`;
+  container.style.minHeight = `${newHeightPx}px`;
+  container.style.maxWidth = `${newWidthPx}px`;
+  container.style.maxHeight = `${newHeightPx}px`;
 
-  // clamp so targetMinCol/Row ∈ [0, 8 - sq]
-  targetMinCol = Math.max(0, Math.min(targetMinCol, 8 - sq));
-  targetMinRow = Math.max(0, Math.min(targetMinRow, 8 - sq));
-
-  // compute pixel offsets to position the full board so targetMinCol/Row is at (0,0) of container
-  const leftPx = -Math.round(targetMinCol * cellSize);
-  const topPx = -Math.round(targetMinRow * cellSize);
-
-  // apply container size and center it in wrapper (wrapper is flex center)
-  container.style.width = `${newSizePx}px`;
-  container.style.height = `${newSizePx}px`;
-  container.style.minWidth = `${newSizePx}px`;
-  container.style.minHeight = `${newSizePx}px`;
-  container.style.maxWidth = `${newSizePx}px`;
-  container.style.maxHeight = `${newSizePx}px`;
-
-  // ensure the inner table is absolute and shifted
-  innerTable.style.position = 'absolute';
   innerTable.style.left = `${leftPx}px`;
   innerTable.style.top = `${topPx}px`;
 
-  // make wrapper clip (should already)
-  if (wrapper) wrapper.style.overflow = 'hidden';
+  // Now compute the algebraic coordinates to display.
+  // Array coordinates: cols 0..7 => files a..h ; rows 0..7 => ranks 8..1 (rank = 8 - row)
+  // Visible top-left (algebraic) depends on flip:
+  // - not flipped: top-left is array (targetMinRow, targetMinCol)
+  // - flipped: top-left is array (targetMaxRow, targetMaxCol)  (mirror)
+  let topLeftFileIdx, topLeftRankIdx, bottomRightFileIdx, bottomRightRankIdx;
+
+  if (!isFlipped) {
+    topLeftFileIdx = targetMinCol;
+    topLeftRankIdx = targetMinRow;
+    bottomRightFileIdx = targetMaxCol;
+    bottomRightRankIdx = targetMaxRow;
+  } else {
+    // visual top-left corresponds to array (targetMaxRow, targetMaxCol)
+    topLeftFileIdx = targetMaxCol;
+    topLeftRankIdx = targetMaxRow;
+    bottomRightFileIdx = targetMinCol;
+    bottomRightRankIdx = targetMinRow;
+  }
+
+  const fileChar = idx => String.fromCharCode(97 + idx); // 0 -> 'a'
+  const rankNum = idx => 8 - idx; // array row -> rank number
+
+  const topLeft = `${fileChar(topLeftFileIdx)}${rankNum(topLeftRankIdx)}`;
+  const bottomRight = `${fileChar(bottomRightFileIdx)}${rankNum(bottomRightRankIdx)}`;
+
+  const coordsEl = document.getElementById('croppped-coords');
+  if (coordsEl) coordsEl.textContent = `Cropped board: ${topLeft} - ${bottomRight}`;
 }
-// initial crop once board is rendered
-setTimeout(() => {
-  try { cropBoardToPiecesSquare(game); } catch (e) { console.warn(e); }
-}, 0);
-
-// recrop after every move / snap end
-const recrop = debounce(() => {
-  try { cropBoardToPiecesSquare(game); } catch (e) { console.warn(e); }
-}, 120);
-
-// call recrop after the player or engine moves
-function safeRecropAfterMove() {
-  // slight delay so DOM/board updates settle
-  setTimeout(recrop, 40);
-}
-
-// integrate with your existing callbacks
-// inside onDrop(), after game.move succeeded and board.position called, add:
-safeRecropAfterMove();
-
-safeRecropAfterMove();
 
 
-function onSnapEnd() {
-  board.position(game.fen());
-  safeRecropAfterMove();
-}
+  // Crop **once** after board renders (wait a bit for flip)
+  setTimeout(() => {
+    try { cropBoardToPiecesRectangle(game); } catch (e) { console.warn(e); }
+  }, 100);
 
-
-window.addEventListener('resize', debounce(() => {
-  try { cropBoardToPiecesSquare(game); } catch (e) { console.warn(e); }
-}, 150));
-
-
-  function onDragStart(source, piece, position, orientation) {
+  // ===============================
+  // Chessboard Callbacks
+  // ===============================
+  function onDragStart(source, piece) {
     if (game.game_over()) return false;
     if ((game.turn() === 'w' && piece.startsWith('b')) ||
-        (game.turn() === 'b' && piece.startsWith('w'))) {
-      return false;
+        (game.turn() === 'b' && piece.startsWith('w'))) return false;
+  }
+
+  let solutionQueue = [...puzzle.solution];
+
+  function onDrop(source, target) {
+    const statusEl = document.getElementById('status');
+
+    const move = game.move({ from: source, to: target, promotion: 'q' });
+    if (!move) {
+      console.log('Illegal move detected:', source, target);
+      console.log('Current FEN:', game.fen());
+      statusEl.textContent = 'Invalid Move';
+      statusEl.style.display = 'block';
+      setTimeout(() => (statusEl.style.display = 'none'), 1500);
+      return 'snapback';
+    }
+
+    const expectedMove = solutionQueue[0];
+    const normalizeSAN = san => san.replace(/[=+#]/g, '').toUpperCase();
+
+    if (normalizeSAN(move.san) !== normalizeSAN(expectedMove)) {
+      game.undo();
+      console.log('Wrong move! Attempted:', move.san, 'Expected:', expectedMove);
+      statusEl.textContent = 'Wrong move!';
+      statusEl.style.display = 'block';
+      setTimeout(() => (statusEl.style.display = 'none'), 1500);
+      return 'snapback';
+    }
+
+    solutionQueue.shift();
+    board.position(game.fen());
+    updateTurnIndicator(game);
+
+    // Auto-play black's move if puzzle expects it
+    if (solutionQueue.length > 0 && game.turn() !== puzzle.side_to_move[0]) {
+      const nextMove = solutionQueue[0];
+      const moves = game.moves({ verbose: true });
+      const foundMove = moves.find(m => normalizeSAN(m.san) === normalizeSAN(nextMove));
+      if (foundMove) {
+        game.move(foundMove.san);
+        solutionQueue.shift();
+        board.position(game.fen());
+        updateTurnIndicator(game);
+      }
+    }
+
+    if (solutionQueue.length === 0) {
+      statusEl.textContent = 'Puzzle Solved!';
+      statusEl.style.display = 'block';
+      statusEl.style.color = 'green';
+      const nextLevel = parseInt(levelNumber) + 1;
+      if (nextLevel <= 64) {
+        const nextCoord = levelNumberToCoord(nextLevel);
+        setTimeout(() => {
+          window.location.href = `cell.html?coord=${nextCoord}`;
+        }, 1000);
+      }
     }
   }
-let solutionQueue = [];
-solutionQueue = [...puzzle.solution]; 
-function onDrop(source, target) {
-  const statusEl = document.getElementById('status');
-
-  // Attempt player's move
-  const move = game.move({
-    from: source,
-    to: target,
-    promotion: 'q'
-  });
-
-  if (move === null) {
-    statusEl.textContent = 'Invalid Move';
-    statusEl.style.display = 'block';
-    setTimeout(() => (statusEl.style.display = 'none'), 1500);
-    return 'snapback';
-  }
-
-  // Check if player's move matches the next solution move
-  const expectedMove = solutionQueue[0];
-
-  // Normalize SAN for comparison
-  const normalizeSAN = san => san.replace('=', '').toUpperCase();
-  if (!normalizeSAN(move.san).includes(normalizeSAN(expectedMove))) {
-    game.undo();
-    statusEl.textContent = 'Wrong move! Try again.';
-    statusEl.style.display = 'block';
-    setTimeout(() => (statusEl.style.display = 'none'), 1500);
-    return 'snapback';
-  }
-
-  // Correct move → remove from queue
-  solutionQueue.shift();
-  board.position(game.fen());
-  updateTurnIndicator(game);
-
-  // Auto-play opponent move if next in solutionQueue
-  if (solutionQueue.length > 0 && game.turn() !== puzzle.side_to_move[0]) {
-    const nextMove = solutionQueue.shift();
-    const moves = game.moves({ verbose: true });
-    const foundMove = moves.find(m => normalizeSAN(m.san).includes(normalizeSAN(nextMove)));
-
-    if (foundMove) {
-      game.move(foundMove.san);
-      board.position(game.fen());
-      updateTurnIndicator(game);
-    }
-  }
-
-  
-if (solutionQueue.length === 0) {
-  statusEl.textContent = 'Puzzle Solved!';
-  statusEl.style.display = 'block';
-  statusEl.style.color = 'green';
-
-  const nextLevel = parseInt(levelNumber) + 1;
-  if (nextLevel <= 64) {
-    const nextCoord = levelNumberToCoord(nextLevel);
-    setTimeout(() => {
-      window.location.href = `cell.html?coord=${nextCoord}`;
-    }, 1000); // optional delay
-  }
-}
-
-}
-
-
 
   function onSnapEnd() {
     board.position(game.fen());
   }
-
-  function autoPlayNext() {
-  if (solutionQueue.length === 0) return;
-
-  const autoMove = solutionQueue.shift();
-  game.move(autoMove);
-  board.position(game.fen());
-  updateTurnIndicator(game);
-
-  // If next move is also for the other side, recurse
-  if (solutionQueue.length > 0 && solutionQueue[0][0] !== autoMove[0]) {
-    setTimeout(autoPlayNext, 400);
-  } else if (solutionQueue.length === 0) {
-    setTimeout(() => {
-      alert('Puzzle Solved!\nPress OK to continue to the next level.');
-      const nextLevel = parseInt(levelNumber) + 1;
-      if (nextLevel <= 64) {
-        const nextCoord = levelNumberToCoord(nextLevel);
-        window.location.href = `cell.html?coord=${nextCoord}`;
-      }
-    }, 400);
-  }
-}
 
   function updateTurnIndicator(game) {
     const turn = game.turn() === 'w' ? 'White' : 'Black';
     document.getElementById('turn').textContent = `${turn} to move`;
   }
 
-  function handleGameOver(game) {
-    const statusEl = document.getElementById('status');
-    statusEl.style.display = 'block';
-
-    if (game.in_checkmate()) {
-  statusEl.textContent = 'Puzzle Solved!';
-  statusEl.style.display = 'block';
-  statusEl.style.color = 'green';
-
-  const nextLevel = parseInt(levelNumber) + 1;
-  if (nextLevel <= 64) {
-    const nextCoord = levelNumberToCoord(nextLevel);
-    setTimeout(() => {
-      window.location.href = `cell.html?coord=${nextCoord}`;
-    }, 500);
+  // ===============================
+  // Controls (Hint and Solution Buttons)
+  // ===============================
+  const hintButton = document.querySelector('.hint-button');
+  if (hintButton) {
+    hintButton.addEventListener('click', () => {
+      if (!solutionQueue || solutionQueue.length === 0) {
+        alert('Puzzle already solved or no moves left!');
+        return;
+      }
+      const nextMove = solutionQueue[0];
+      let hintEl = document.getElementById('hint-display');
+      if (!hintEl) {
+        hintEl = document.createElement('div');
+        hintEl.id = 'hint-display';
+        document.body.appendChild(hintEl);
+      }
+      hintEl.textContent = `Next move: ${nextMove}`;
+      setTimeout(() => { hintEl.textContent = ''; }, 5000);
+    });
   }
-}
 
+  const dialogDisplay = document.querySelector('.solution-display');
+  const solutionButton = document.querySelector('.solution-button');
+  const closeModal = document.querySelector('.x-mark');
+
+  if (solutionButton && dialogDisplay) solutionButton.addEventListener('click', () => dialogDisplay.showModal());
+  if (closeModal && dialogDisplay) closeModal.addEventListener('click', () => dialogDisplay.close());
+
+  const solutionContent = document.querySelector('.solution-content');
+  if (solutionContent) {
+    solutionContent.innerHTML = `<ol>${puzzle.solution.filter((_, i, arr) => i === 0 || i % 2 !== 0 || i === arr.length - 1).map(m => `<li>${m}</li>`).join('')}</ol>`;
   }
 
-
+  // ===============================
+  // Navigation Buttons
+  // ===============================
   const backBtn = document.querySelector('.back-button');
   const forwardBtn = document.querySelector('.forward-button');
 
-  backBtn.onclick = () => {
+  if (backBtn) backBtn.onclick = () => {
     const prevLevel = parseInt(levelNumber) - 1;
     if (prevLevel >= 1) {
       const prevCoord = levelNumberToCoord(prevLevel);
@@ -380,8 +355,7 @@ if (solutionQueue.length === 0) {
       window.location.href = 'index.html';
     }
   };
-
-  forwardBtn.onclick = () => {
+  if (forwardBtn) forwardBtn.onclick = () => {
     const nextLevel = parseInt(levelNumber) + 1;
     if (nextLevel <= 64) {
       const nextCoord = levelNumberToCoord(nextLevel);
