@@ -8,7 +8,6 @@
   <link rel="icon" type="image/png" href="./assets/chess-icon.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   
-  <!-- Chess libraries -->
   <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
@@ -22,8 +21,7 @@
         <img src="./assets/chess-icon.png" alt="chess-icon" width="40" height="40" class="chess-icon">
         <div>Pocket Chess</div>
       </a>
-    </div>
-
+    </div>  
     <div class="level-content">
         <div class="level-header">
             <button class="back-button">
@@ -38,40 +36,39 @@
                 <i class="fa-solid fa-regular fa-arrow-right"></i>
             </button>
         </div>
-
       <div class="objective">Mate in 2</div>
-
       <div class="game-section">
-        <div class="board-header">
-          <div class="status-message" id="status">Invalid Move</div> 
-          <div class="controls">
-            <button class="hint-button">
-              <img src="./assets/light-bulb-14.png" alt="Hint">
-              HINT
-            </button>   
-            <button class="solution-button">Show solution</button>
-          </div>
-        </div>
-        <dialog class="solution-display">
-          <div class="dialog-header">
-            <i class="fa-solid fa-xmark x-mark"></i>
-            
-          </div>
-          <div class="title">Solution:</div>
-          <div class="solution-content">
-            
-          </div>
-        </dialog>
-        <div class="board-wrapper">
-          <div class="hint-display" id="hint-display"></div>
-          <div class="board-container" id="board">
-            <!-- Chess board will be imported here -->
-          </div>
-          <div class="croppped-coords" id="croppped-coords"></div>
-        </div>
-      </div>
+  <div class="board-header">
+    <div class="status-message" id="status">Invalid Move</div> 
+    <div class="controls">
+      <button class="hint-button">
+        <img src="./assets/light-bulb-14.png" alt="Hint">
+        HINT
+      </button>   
+      <button class="solution-button">Show solution</button>
     </div>
+  </div>
+  <dialog class="solution-display">
+    <div class="dialog-header">
+      <i class="fa-solid fa-xmark x-mark"></i>
+    </div>
+    <div class="title">Solution:</div>
+    <div class="solution-content"></div>
+  </dialog>
+  <div class="board-wrapper">
+    <div class="board-container" id="board">
+    </div>
+    <div class="croppped-coords" id="croppped-coords"></div>
+  </div>
+</div>
 
+
+<div class="hint-display" id="hint-display"></div>
+<div class="footer-tab">
+  <p>Pocket Chess created by <a href="https://github.com/Stuff1Do">Stuff1Do</a> • <a href="https://github.com/Stuff1Do/pocket-chess">GitHub</a></p>
+</div>
+    <script src="minimax-chess-engine.js"></script>
+    
     <script src="cell-script.js"></script>
 </body>
 </html>

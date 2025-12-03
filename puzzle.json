@@ -3,107 +3,700 @@
     "id": 1,
     "fen": "1bkr4/p7/2B5/QN1p4/8/8/8/8 w - - 0 1",
     "side_to_move": "white",
-    "solution": ["Qa6"],
+    "solution": [
+      "Qa6"
+    ],
     "description": "White to move and play Qa6"
   },
   {
     "id": 2,
     "fen": "5r2/8/4bk1K/8/8/8/8/8 b - - 0 1",
     "side_to_move": "black",
-    "solution": ["Rh8#"],
+    "solution": [
+      "Rh8#"
+    ],
     "description": "Black to move and checkmate in 1"
   },
   {
     "id": 3,
-    "fen": "3k4/3P4/pKP5/8/8/8/8/8 w KQkq - 0 1",
+    "fen": "4N3/5k2/4n3/1r6/4K3/8/8/8 w - - 0 1",
     "side_to_move": "white",
-    "solution": ["c7", "Kxd7", "Kb7", "Kd6", "c8Q"],
-    "description": "White to move; solution sequence for promotion"
+    "solution": [
+      "Nd6"
+    ],
+    "description": "white to move"
   },
   {
     "id": 4,
     "fen": "8/8/8/6p1/6k1/5n2/6KP/8 w - - 0 1",
     "side_to_move": "white",
-    "solution": ["h3", "Kh5", "Kxf3"],
+    "solution": [
+      "h3",
+      "Kh5",
+      "Kxf3"
+    ],
     "description": "White to move; possible moves are h3, Kh5, Kxf3"
   },
   {
     "id": 5,
     "fen": "3n3k/7p/4q1p1/8/6Q1/8/8/8 w - - 0 1",
     "side_to_move": "white",
-    "solution": ["Qd4", "Kg8", "Qxd8"],
+    "solution": [
+      "Qd4",
+      "Kg8",
+      "Qxd8"
+    ],
     "description": "White to move and play Qxd8"
   },
   {
     "id": 6,
     "fen": "3r1k2/5p2/4p3/3rP3/3NK3/3P4/5R2/8 w - - 0 1",
     "side_to_move": "white",
-    "solution": ["Nxe6", "Ke7", "Nxd8"],
+    "solution": [
+      "Nxe6",
+      "Ke7",
+      "Nxd8"
+    ],
     "description": "White to move and follow the sequence Nxe6, Ke7, Nxd8"
   },
   {
     "id": 7,
-    "fen": "2n5/P7/1k6/1PNp4/2pP4/2q5/8/8 w - - 0 1",
+    "fen": "8/5Qp1/3qp1B1/3pk3/8/5KP1/8/8 w - - 0 1",
     "side_to_move": "white",
-    "solution": ["Na4", "Kxb5", "Nxc3"],
+    "solution": [
+      "Qxg7"
+    ],
     "description": "White to move and follow the sequence Na4, Kxb5, Nxc3"
   },
   {
     "id": 8,
     "fen": "5rk1/5ppp/5n2/6B1/3q4/3B4/5PPP/3Q1RK1 w - - 0 1",
     "side_to_move": "white",
-    "solution": ["Bh7", "Nxh7", "Qxd4"],
+    "solution": [
+      "Bxh7",
+      "Nxh7",
+      "Qxd4"
+    ],
     "description": "White to play: Bh7 (first), then Nxh7, then Qxd4."
   },
   {
     "id": 9,
-    "fen": "2bqk2r/4ppbp/6p1/2PQ4/8/2N2N2/1P2PPPP/2B1KB1R b - - 0 1",
-    "side_to_move": "black",
-    "solution": ["Bxc3", "Bd2", "Qxd5"],
-    "description": "Black to move: Bxc3, then Bd2, then Qxd5."
+    "fen": "8/8/2p4R/3kP3/3P4/3K4/8/8 w - - 0 1",
+    "side_to_move": "white",
+    "solution": [
+      "Rd6"
+    ],
+    "description": "Black to move"
   },
   {
     "id": 10,
     "fen": "6k1/4Rp2/5Qp1/3p1q2/7p/8/8/8 w - - 0 1",
     "side_to_move": "white",
-    "solution": ["Re8", "Kh7", "Qh8"],
+    "solution": [
+      "Re8",
+      "Kh7",
+      "Qh8"
+    ],
     "description": "White to move: Re8, then Kh7, then Qh8."
   },
   {
     "id": 11,
     "fen": "5k2/5p2/2pN4/Q7/3P4/1P3q2/P3r3/8 w - - 0 1",
     "side_to_move": "white",
-    "solution": ["Qd8", "Re8", "Qxe8"],
+    "solution": [
+      "Qd8",
+      "Re8",
+      "Qxe8"
+    ],
     "description": "White to move: Qd8, then Qe8, then Qxe8."
   },
   {
-  "id": 12,
-  "fen": "5k2/8/6RP/5r2/8/8/8/8 w - - 0 1",
-  "solution": ["h7", "Rh5", "Rg8"],
-  "side_to_move": "white",
-  "description": "White to move: push the pawn to h7, then use the rook to deliver mate."
-},
-{
-  "id": 13,
-  "fen": "8/8/8/2q2b2/5Qn1/2N2N2/2P3PP/3RRK2 b - - 0 1",
-  "solution": ["Qf2"],
-  "side_to_move": "black",
-  "description": "Black to move: deliver a threat or check with Qf2."
-},
-{
-  "id": 14,
-  "fen": "6kr/3pqRp1/4p1Q1/4n1Np/7P/8/8/8 w - - 0 1",
-  "solution": ["Qxg7"],
-  "side_to_move": "white",
-  "description": "White to move and play Qg7"
-}
+    "id": 12,
+    "fen": "2r5/8/a7/1p6/2Nnk3/KP6/PR6/8 w - - 0 1",
+    "solution": [
+      "Nd6",
+      "Kd5",
+      "Nxc8"
+    ],
+    "side_to_move": "white",
+    "description": "White to move: push the pawn to h7, then use the rook to deliver mate."
+  },
+  {
+    "id": 13,
+    "fen": "2r5/4kr1R/4p3/8/4N3/2PK4/5P2/8 w - - 0 1",
+    "solution": [
+      "Rxf7",
+      "Kxf7",
+      "Nd6",
+      "Ke7",
+      "Nxc8+"
+    ],
+    "side_to_move": "white",
+    "description": "Black to move: deliver a threat or check with Qf2."
+  },
+  {
+    "id": 14,
+    "fen": "6kr/3pqRp1/4p1Q1/4n1Np/7P/8/8/8 w - - 0 1",
+    "side_to_move": "white",
+    "solution": [
+      "Qxg7"
+    ],
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 15,
+    "fen": "1k3r2/ppp2p2/q7/8/3R4/2P5/PPK5/3R4 w - - 0 1",
+    "side_to_move": "white",
+    "solution": [
+      "Rd8",
+      "Rxd8",
+      "Rxd8"
+    ],
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 16,
+    "fen": "8/8/3pp3/2q1B3/4P1n1/5N2/5PPP/3QK2R b K - 0 1",
+    "solution": [
+      "Qxf2"
+    ],
+    "side_to_move": "black",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 17,
+    "fen": "8/8/8/8/8/8/PPr4r/1R3K2 b - - 0 1",
+    "solution": [
+      "Rh1"
+    ],
+    "side_to_move": "black",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 18,
+    "fen": "7r/7k/4n1pp/4p3/8/6Q1/6PP/5R2 w - - 0 1",
+    "solution": [
+      "Rf7",
+      "Kg8",
+      "Qxg6"
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 19,
+    "fen": "8/8/8/8/1n1P4/8/1PPQ4/qNKR4 b - - 0 1",
+    "solution": [
+      "Na2"
+    ],
+    "side_to_move": "black",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 20,
+    "fen": "6k1/3r1p2/6p1/3b2q1/3Q4/6PP/5P2/4R1K1 w - - 0 1",
+    "solution": [
+      "Re8",
+      "Kh7",
+      "Rh8"
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 21,
+    "fen": "3r3k/5Bp1/3P1n2/8/8/2K3Q1/8/8 b - - 0 1",
+    "solution": [
+      "Ne4",
+      "Kd4",
+      "Nxg3"
+    ],
+    "side_to_move": "black",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 22,
+    "fen": "7r/3n2kp/4p3/3nP3/3P4/3P4/3Q2PP/5RK1 w - - 0 1",
+    "solution": [
+      "Qg5"
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 23,
+    "fen": "5rk1/2q2p1p/2n1p2p/2b5/4p3/2B1P2P/2P2PP1/3Q1RK1 w - - 0 1",
+    "solution": [
+      "Qg4"
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 24,
+    "fen": "2r3k1/5ppp/8/3pp3/1B6/1Q2P3/5PPP/2R3K1 b - - 0 1",
+    "solution": [
+      "Rxc1",
+      "Qd1",
+      "Rxd1",
+      "Be1",
+      "Rxe1"
+    ],
+    "side_to_move": "black",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 25,
+    "fen": "4N3/7p/6pk/6rn/5P1K/8/6PP/6N1 w - - 0 1",
+    "solution": [
+      "fxg5"
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 26,
+    "fen": "8/7p/6p1/4kp2/6BP/6PK/5q2/8 b - - 0 1",
+    "solution": [
+      "fxg4",
+      "Kxg4",
+      "Qf5"
+    ],
+    "side_to_move": "black",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 27,
+    "fen": "5rk1/6pp/5p2/8/4p1b1/4P2q/5P1N/5R1K b - - 0 1",
+    "solution": [
+      "Bf3",
+      "Kg1",
+      "Qg2"
+    ],
+    "side_to_move": "black",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 28,
+    "fen": "5k2/6p1/2q2pQ1/2p2N2/8/8/8/8 w - - 0 1",
+    "solution": [
+      "Qxg7",
+      "Ke8",
+      "Qe7"
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 29,
+    "fen": "3n4/p2Q4/kpp1n3/8/2P5/1PK5/q7/8 w - - 0 1",
+    "solution": [
+      "Qc8",
+      "Ka5",
+      "b4",
+      "Ka4",
+      "Qa6"
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 30,
+    "fen": "3r1r1k/5Qbp/2p3p1/8/2nP1R1N/2P3Pb/7P/2B4K w - - 0 1",
+    "solution": [
+      "Nxg6",
+      "hxg6",
+      "Rh4",
+      "Bh6",
+      "Rxh6"
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 31,
+    "fen": "8/8/1q6/3p4/1P6/1Q5n/3N2PP/5R1K b - - 0 1",
+    "solution": [
+      "Qg1",
+      "Rxg1",
+      "Nf2"
+    ],
+    "side_to_move": "black",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 32,
+    "fen": "5r1k/3bn1pp/3N4/6q1/3p4/3P2P1/6BP/5RK1 w - - 0 1",
+    "solution": [
+      "Rxf8",
+      "Ng8",
+      "Nf7"
 
-
-
-
-
- ]
-
-
-
-
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 33,
+    "fen": "2bq3r/2p1b1p1/2npk3/6p1/7N/5Q2/8/8 w - - 0 1",
+    "solution": [
+      "Qf5"
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 34,
+    "fen": "5r1k/5p2/5Np1/6P1/8/5pK1/5R2/5B2 w - - 0 1",
+    "solution": [
+      "Rh2",
+      "Kg7",
+      "Rh7" 
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 35,
+    "fen": "8/5R1p/6pk/5n2/5R2/5K1P/4rNP1/8 b - - 0 1",
+    "solution": [
+      "Re3",
+      "Kg4",
+      "Rg3"
+    ],
+    "side_to_move": "black",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 36,
+    "fen": "8/6k1/5p2/5Pp1/6n1/6rp/8/7K b - - 0 1",
+    "solution": [
+      "Nf2",
+      "Kh2",
+      "Rg2"
+    ],
+    "side_to_move": "black",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 37,
+    "fen": "8/pr6/5kp1/5b2/6P1/Pn6/K4R2/4N3 b - - 0 1",
+    "solution": [
+      "Nc1",
+      "Ka1",
+      "Rb1"
+    ],
+    "side_to_move": "black",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 38,
+    "fen": "7r/8/8/5p2/6p1/6P1/5R1r/6K1 b - - 0 1",
+    "solution": [
+      "Rh1",
+      "Kg2",
+      "R8h2"
+    ],
+    "side_to_move": "black",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 39,
+    "fen": "6k1/3R1r1r/5p1Q/3p2p1/3P4/6P1/5PPK/8 w - - 0 1",
+    "solution": [
+      "Rd8",
+      "Rf8",
+      "Rxf8"
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 40,
+    "fen": "4kbnr/3n2p1/7p/3p1p2/5p1B/3P4/3QBPPP/8 w - - 0 1",
+    "solution": [
+      "Bh5",
+      "g6",
+      "Bxg6"
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 41,
+    "fen": "5rk1/6pp/8/4n3/4nrBB/7P/6Q1/6RK w - - 0 1",
+    "solution": [
+      "Be6",
+      "Nf7",
+      "Qxg7"
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 42,
+    "fen": "6k1/5rpp/4Pp1B/8/8/6Q1/5PPP/4R1K1 w - - 0 1",
+    "solution": [
+      "exf7",
+      "Kxf7",
+      "Qxg7"
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 43,
+    "fen": "5r2/8/2R5/6P1/3ppk2/1P6/2K5/8 w - - 0 1",
+    "solution": [
+     "Rf6",
+     "Rxf6",
+     "gxf6"
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 44,
+    "fen": "7k/2p1pr1p/3Pq1p1/2Pn2P1/8/4B2P/4QP2/8 w - - 0 1",
+    "solution": [
+      "Bd4",
+      "Kg8",
+      "Qxe6"
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 45,
+    "fen": "3n1rk1/3Q2p1/5pqp/5N2/8/8/8/8 w - - 0 1",
+    "solution": [
+      "Ne7",
+      "Kh8",
+      "Nxg6"
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 46,
+    "fen": "2q5/R3rrk1/5Q1p/1p4pP/2p1P1P1/1P1P1R2/2P3K1/8 b - - 0 1",
+    "solution": [
+      "Rxf6",
+      "Rxe7",
+      "Kf8",
+      "Rxf6",
+      "Kxe7"
+    ],
+    "side_to_move": "black",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 47,
+    "fen": "8/8/8/4Pb2/3n1P2/6P1/1P1N2B1/2KR4 b - - 0 1",
+    "solution": [
+      "Ne2"
+    ],
+    "side_to_move": "black",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 48,
+    "fen": "2b5/8/3p4/5kpK/2PPp3/6P1/4B1P1/8 w - - 0 1",
+    "solution": [
+      "Bg4",
+      "Kf6",
+      "Bxc8"
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 49,
+    "fen": "8/8/6k1/3pB3/4p1KP/4P1P1/5q2/8 b - - 0 1",
+    "solution": [
+      "Qf5"
+    ],
+    "side_to_move": "black",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 50,
+    "fen": "4r3/4B1pp/2b2p2/7q/7P/5PQ1/2P3P1/4R1K1 b - - 0 1",
+    "solution": [
+      "Rxe7",
+      "Rxe7",
+      "Qc5",
+      "Kh2",
+      "Qxe7"
+    ],
+    "side_to_move": "black",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 51,
+    "fen": "8/4B2p/1P6/8/4p3/1r3k1P/P5pK/8 w - - 0 1",
+    "solution": [
+      "axb3",
+      "Kf2",
+      "Bc5",
+      "e3",
+      "Bxe3",
+      "Kxe3",
+      "Kxg2"
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 52,
+    "fen": "2rq1rk1/3nbp1p/4p1b1/3pP2B/3P4/4N2P/3N1PP1/2RQ1RK1 b - - 0 1",
+    "solution": [
+      "Rxc1",
+      "Qxc1",
+      "Bxh5"
+    ],
+    "side_to_move": "black",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 53,
+    "fen": "8/4qBp1/5n2/4Q3/4P3/5N2/5KP1/8 b - - 0 1",
+    "solution": [
+      "Ng4",
+      "Ke2",
+      "Nxe5 "
+    ],
+    "side_to_move": "black",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 54,
+    "fen": "4n3/2Nb2k1/3P2pr/6Np/2Q5/8/8/8 w - - 0 1",
+    "solution": [
+      "Qf7",
+      "Kh8",
+      "Qf8"
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 55,
+    "fen": "5r2/3bn2k/2q2Pp1/8/8/2B3QP/6P1/5RK1 w - - 0 1",
+    "solution": [
+      "Qh4",
+      "Kg8",
+      "f7",
+      "Rxf7",
+      "Qh8"
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 56,
+    "fen": "5k2/PK3p2/1P6/8/8/1r6/6p1/4R2q w - - 0 1",
+    "solution": [
+       "a8=Q",
+       "Kg7",
+       "Qa1",
+       "Kg6",
+       "Rxh1",
+       "gxh1=Q",
+       "Qxh1"
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 57,
+    "fen": "2r3k1/1R3rp1/2n2p2/3ppN2/5P2/6P1/8/1R4K1 w - - 0 1",
+    "solution": [
+      "Rxf7",
+      "Kxf7",
+      "Nd6",
+      "Ke7",
+      "Nxc8"
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 58,
+    "fen": "5rrk/5pp1/6QN/4P3/5P2/6P1/7P/6K1 w - - 0 1",
+    "solution": [
+      "Nxf7",
+      "Rxf7",
+      "Qh5"
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 59,
+    "fen": "2r3k1/3p1p2/p1q3p1/1p3RQ1/8/1P6/PP3PP1/1K1R4 b - - 0 1",
+    "solution": [
+      "Qc2",
+      "Ka1",
+      "Qxd1",
+      "Qc1",
+      "Qxc1"
+    ],
+    "side_to_move": "black",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 60,
+    "fen": "8/1b6/5R2/1r1p3k/3P4/5PK1/8/3B4 w - - 0 1",
+    "solution": [
+     "f4"
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 61,
+    "fen": "kbK5/pp6/1P6/8/8/8/8/R7 w - - 0 1",
+    "solution": [
+      "Ra6",
+      "bxa6",
+      "b7"
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 62,
+    "fen": "2R5/4bppk/3p4/5R1P/4PQ2/5P2/8/8 w - - 0 1",
+    "solution": [
+      "Qh6",
+      "Kxh6",
+      "Rh8"
+    ],
+    "side_to_move": "white",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 63,
+    "fen": "8/6r1/7k/4pQnq/4P3/8/5PPP/4RBK1 b - - 0 1",
+    "solution": [
+      "Nf3",
+      "Qxf3",
+      "Qxf3"
+    ],
+    "side_to_move": "black",
+    "description": "White to move and play Qg7"
+  },
+  {
+    "id": 64,
+    "fen": "8/p7/2k2p2/1p1p1Pp1/1P1K2P1/P1P5/8/8 b - - 0 1",
+    "solution": [
+      "Kd6",
+      "Kd3",
+      "Ke5"
+     
+    ],
+    "side_to_move": "black",
+    "description": "White to move and play Qg7"
+  }
+]
