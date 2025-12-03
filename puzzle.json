@@ -112,11 +112,11 @@
   },
   {
     "id": 12,
-    "fen": "2r5/8/a7/1p6/2Nnk3/KP6/PR6/8 w - - 0 1",
+    "fen": "8/2Rr3k/3Pq1pp/8/3p4/6P1/5P1P/2R3K1 w - - 0 1",
     "solution": [
-      "Nd6",
-      "Kd5",
-      "Nxc8"
+      "Rxd7",
+      "Qxd7",
+      "Rc7"
     ],
     "side_to_move": "white",
     "description": "White to move: push the pawn to h7, then use the rook to deliver mate."
