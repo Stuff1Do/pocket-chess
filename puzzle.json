@@ -560,11 +560,11 @@
   },
   {
     "id": 53,
-    "fen": "8/4qBp1/5n2/4Q3/4P3/5N2/5KP1/8 b - - 0 1",
+    "fen": "8/8/2p5/3pP3/B3n3/3K4/PPP2q2/RNBQ4 b - - 0 1",
     "solution": [
-      "Ng4",
-      "Ke2",
-      "Nxe5"
+        "Nc5",
+        "Kc3",
+        "Nxa4"
     ],
     "side_to_move": "black",
     "description": "White to move and play Qg7"
