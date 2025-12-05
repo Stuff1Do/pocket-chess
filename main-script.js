@@ -1,19 +1,14 @@
-// board-init2.js
-// Clean replacement for board-init.js: generates an 8x8 board and navigates on select
 
 (function () {
   const container = document.querySelector('.levels-section');
   if (!container) return;
 
-  // Configuration: change this template to control where selection navigates.
-  // Use {coord} as a placeholder which will be replaced with the cell coordinate (e.g. a8).
   const NAV_TEMPLATE = 'cell.html?coord={coord}';
 
   function buildNavUrl(coord) {
     return NAV_TEMPLATE.replace('{coord}', encodeURIComponent(coord));
   }
 
-  // Clear any existing content
   container.innerHTML = '';
 
   const size = 8;
@@ -22,25 +17,21 @@
   function selectCell(cell) {
     if (!cell) return;
     if (selectedCell === cell) {
-      // deselect
       cell.classList.remove('selected');
       cell.setAttribute('aria-pressed', 'false');
       selectedCell = null;
       container.dispatchEvent(new CustomEvent('cellselect', { detail: { coord: cell.dataset.coord, selected: false } }));
       return;
     }
-    // deselect previous
     if (selectedCell) {
       selectedCell.classList.remove('selected');
       selectedCell.setAttribute('aria-pressed', 'false');
     }
-    // select new
     cell.classList.add('selected');
     cell.setAttribute('aria-pressed', 'true');
     selectedCell = cell;
     container.dispatchEvent(new CustomEvent('cellselect', { detail: { coord: cell.dataset.coord, selected: true } }));
 
-    // NAVIGATE on selection
     const coord = cell.dataset.coord;
     const url = buildNavUrl(coord);
     window.location.href = url;
